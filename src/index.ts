@@ -1,33 +1,47 @@
 /**
- * The program shows what the energy is released
- *   when user enters mass.
- *
+ * This is a hourglass program.
  * By:      Huzaifa Khalid
  * Version: 1.0
- * Since:   2022-09-14
+ * Since:   2022-10-17
  */
+
+import promptSync from 'prompt-sync'
+
 /**
- * The function gets the reversestring
+ * The hourGlass() function.
  *
- * @param {string} string - string value
- * @returns {string} - Retrub value
+ * @param {number} userNum - number from user
+ * @param  {number} spaces - spaces from user
  */
-
-function reverseString(string: string): string {
-  if (string === '') {
-    return string
-  } else {
-    return reverseString(string.slice(1, 10)) + string[0]
+function hourGlass(userNum: number, spaces: number = 0): void {
+  let string = ''
+  for (let counter: number = 0; counter < spaces; counter++) {
+    string += ' '
   }
+  for (let counter1: number = 0; counter1 < userNum; counter1++) {
+    string += '* '
+  }
+  console.log(string + '\n')
+  if (userNum > 1) {
+    hourGlass(userNum - 1, spaces + 1)
+  }
+  console.log(string + '\n')
 }
 
-function main() {
-  const aString = 'recursion'
-
+/**
+ * The main() function.
+ *
+ */
+function main(): void {
+  const prompt = promptSync()
+  const userString = prompt('Enter the hourglass length: ')
   console.log('')
-  console.log(`The orignal string is: ${aString}`)
-  console.log(`The reversed string is: ${reverseString(aString)}`)
-  console.log('\nDone')
+  const userNumber = parseInt(userString)
+  if (isNaN(userNumber)) {
+    console.log('Not an number.')
+  } else if (userNumber <= 0) {
+    console.log('Invalid input')
+  }
+  hourGlass(userNumber)
 }
-
 main()
